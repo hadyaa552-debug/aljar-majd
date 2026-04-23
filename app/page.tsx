@@ -308,7 +308,7 @@ function ProjectSection({ id, num, name, loc, desc, price, payment, imgs, detail
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false)
-  const [lang, setLang] = useState<"en"|"ar">("ar")
+  const [lang, setLang] = useState<"en"|"ar">("en")
   const isAr = lang === "ar"
   const tx = t[lang]
 
@@ -323,8 +323,15 @@ export default function Home() {
     <div dir={isAr?"rtl":"ltr"}>
       <Toaster />
 
+      {/* ANNOUNCEMENT BAR */}
+      <div className="fixed top-0 inset-x-0 z-[60] bg-primary text-primary-foreground py-2.5 px-4 text-center text-xs font-bold tracking-wide">
+        {isAr
+          ? "🔥 عرض لفترة محدودة — أسعار تبدأ من ٤ مليون جنيه فقط | اتصل الآن: 01111136040"
+          : "🔥 Limited Time Offer — Prices Starting from 4M EGP Only | Call Now: 01111136040"}
+      </div>
+
       {/* NAV */}
-      <header className={`fixed top-0 inset-x-0 z-50 h-16 lg:h-20 flex items-center px-5 lg:px-10 justify-between transition-all ${scrolled?"bg-background/98 backdrop-blur-lg border-b border-primary/10 shadow-lg":"bg-transparent"}`}>
+      <header className={`fixed top-8 inset-x-0 z-50 h-16 lg:h-20 flex items-center px-5 lg:px-10 justify-between transition-all ${scrolled?"bg-background/98 backdrop-blur-lg border-b border-primary/10 shadow-lg":"bg-transparent"}`}>
         <img src="/images/aljar-logo.svg" alt="ALJAR" className="h-8 lg:h-10 object-contain" />
         <nav className="hidden lg:flex gap-8">
           {tx.navLinks.map((l,i)=>(
@@ -345,7 +352,7 @@ export default function Home() {
       </header>
 
       {/* HERO — VIDEO */}
-      <section className="relative min-h-screen flex items-end overflow-hidden">
+      <section className="relative min-h-screen flex items-end overflow-hidden" style={{paddingTop:'32px'}}>
         <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
           <source src="https://framerusercontent.com/assets/i6dOUuwDp3W80LGE1s1AUdFUXQ8.mp4" type="video/mp4" />
         </video>
