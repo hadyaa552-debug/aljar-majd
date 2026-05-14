@@ -165,12 +165,22 @@ function LeadForm({ subject, lang, dark=false }: { subject: string; lang: "en"|"
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${EMAIL}`, {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ ...form, _subject: subject, _captcha: "false", _template: "table", _cc: CC }),
+        body: JSON.stringify({
+          access_key: "02a7b4b3-b97e-4d3a-9913-6e4db04d0fed",
+          name: form.name,
+          phone: form.phone,
+          project: form.project,
+          subject: subject,
+          from_name: "ALJAR Landing Page",
+          replyto: EMAIL,
+          cc: CC,
+        }),
       })
-      if (res.ok) router.push("/thank-you")
+      const data = await res.json()
+      if (data.success) router.push("/thank-you")
       else throw new Error()
     } catch { toast({ title: "Error", variant: "destructive" }); setLoading(false) }
   }
